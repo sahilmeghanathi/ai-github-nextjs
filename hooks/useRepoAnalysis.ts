@@ -12,6 +12,8 @@ export function useRepoAnalysis() {
     setLoading(true);
     try {
       const result = await analyzeRepo(repo);
+
+      console.log("Analysis result:", result);
       setData(result);
     } catch (err) {
       console.error(err);
