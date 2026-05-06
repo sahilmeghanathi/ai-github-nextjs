@@ -1,4 +1,119 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI GitHub Intelligence
+
+Analyze your repositories with AI-powered insights to detect risky files, unstable pull requests, and high-change hotspots instantly.
+
+## Features
+
+- **Risk Detection**: Automatically identify files most at risk of introducing bugs based on change patterns and history
+- **PR Analysis**: Score pull requests for stability and quality with intelligent metrics
+- **File Frequency Analysis**: Discover hotspots—files that change frequently and may indicate maintenance bottlenecks
+- **Real-time Insights**: Process repository data and generate actionable intelligence in seconds
+- **Visual Dashboard**: Interactive charts and heatmaps for easy comprehension of complex metrics
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+- GitHub personal access token (for accessing repository data)
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/yourusername/ai-github-intelligence.git
+cd ai-github-intelligence
+npm install
+```
+
+### Configuration
+
+Set up your GitHub token:
+
+```bash
+export GITHUB_TOKEN="your_github_pat_here"
+```
+
+### Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## Usage
+
+1. Enter a GitHub repository URL (format: `owner/repo`) in the input field
+2. Click "Analyze" to process the repository
+3. View insights including:
+   - Risk heatmap of high-risk files
+   - PR stability scores
+   - File change frequency analysis
+
+## Technology Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) with React 19
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with custom components from [shadcn/ui](https://ui.shadcn.com/)
+- **UI Components**: Radix UI, Lucide React icons
+- **Language**: TypeScript
+- **API Integration**: GitHub REST API
+
+## Project Structure
+
+```
+├── app/                 # Next.js app directory
+│   ├── actions/        # Server actions for backend logic
+│   ├── dashboard/      # Dashboard pages
+│   └── page.tsx        # Home page
+├── components/         # React components
+│   ├── insights/       # AI insights visualizations
+│   ├── pr/            # PR analysis components
+│   ├── risk/          # Risk assessment components
+│   ├── shared/        # Shared UI components
+│   └── ui/            # Base UI components
+├── hooks/             # Custom React hooks
+├── lib/               # Utility functions and feature logic
+│   ├── ai/           # AI prompts and processing
+│   ├── github/       # GitHub API integration
+│   ├── pr/           # PR scoring logic
+│   ├── risk/         # Risk engine
+│   └── features/     # Feature extraction
+└── public/            # Static assets
+```
+
+## Building for Production
+
+Build the application:
+
+```bash
+npm run build
+npm start
+```
+
+## Linting
+
+Check code quality:
+
+```bash
+npm run lint
+```
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues and pull requests.
+
+---
+
+Built with ❤️ for better code intelligence
 
 ## Getting Started
 

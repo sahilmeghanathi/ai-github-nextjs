@@ -1,6 +1,8 @@
 const GITHUB_API_BASE = "https://api.github.com";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+
+
 // }
 const githubHeaders: HeadersInit = {
   Accept: "application/vnd.github+json",
@@ -44,7 +46,7 @@ interface PullRequest {
 }
 
 interface RepoData {
-  commits: CommitDetails[]; // 👈 extended but backward compatible
+  commits: CommitDetails[]; 
   prs: PullRequest[];
 }
 
@@ -109,7 +111,7 @@ export async function fetchRepoData(repo: string): Promise<RepoData> {
         return details;
       } catch (err) {
         console.warn("Failed to fetch commit details:", c.sha);
-        return c; // fallback → keeps app stable
+        return c;
       }
     }),
   );
