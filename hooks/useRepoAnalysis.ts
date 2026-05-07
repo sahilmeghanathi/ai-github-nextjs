@@ -1,4 +1,3 @@
-// hooks/useRepoAnalysis.ts
 "use client";
 
 import { analyzeRepo } from "@/app/actions/analyzeRepo";
@@ -12,8 +11,7 @@ export function useRepoAnalysis() {
     setLoading(true);
     try {
       const result = await analyzeRepo(repo);
-
-      console.log("Analysis result:", result);
+      // console.log("Analysis result:", result);
       setData(result);
     } catch (err) {
       console.error(err);

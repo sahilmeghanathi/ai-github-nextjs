@@ -3,11 +3,16 @@ import { fetchRepoData } from "@/lib/github/fetchRepoData";
 import { extractFeatures } from "@/lib/features/extractFeatures";
 import { calculateRiskHeatmap } from "@/lib/risk/riskEngine";
 import { calculatePRScores } from "@/lib/pr/prScore";
+import { buildAIInput } from "@/lib/ai/buildAiInput";
+import { generatePredictions } from "@/lib/ai/prediction";
+import { generateRefactorPlan } from "@/lib/ai/refactor";
 
 type AnalyzeRepoResult = {
   riskHeatmap: ReturnType<typeof calculateRiskHeatmap>;
   prScores: ReturnType<typeof calculatePRScores>;
   features: ReturnType<typeof extractFeatures>;
+  predictions: ReturnType<typeof generatePredictions>;
+  refactorPlan: ReturnType<typeof generateRefactorPlan>;
 };
 
 function parseRepo(input: string): string {
@@ -42,7 +47,23 @@ export async function analyzeRepo(repo: string): Promise<AnalyzeRepoResult> {
     const riskHeatmap = calculateRiskHeatmap(features);
     const prScores = calculatePRScores(rawData.prs);
 
-    return { riskHeatmap, prScores, features };
+     const aiInput = buildAIInput({
+       riskHeatmap,
+       prs: rawData.prs,
+       commits: rawData.commits,
+     });
+
+     console.log(`[analyzeRepo] AI Input for ${normalizedRepo}:`, aiInput);
+
+     const [predictions, refactorPlan] = await Promise.all([
+       generatePredictions(aiInput),
+       generateRefactorPlan(aiInput),
+     ]);
+
+     console.log(`[analyzeRepo] AI Predictions for ${normalizedRepo}:`, predictions);
+     console.log(`[analyzeRepo] AI Refactor Plan for ${normalizedRepo}:`, refactorPlan);
+
+   return { riskHeatmap, prScores, features, predictions, refactorPlan };
   } catch (err) {
     // Preserve original stack but add repo context for server logs
     const message = err instanceof Error ? err.message : String(err);
