@@ -9,7 +9,15 @@ import { PredictionsList } from "@/components/ai/predictionList";
 import { RefactorPlan } from "@/components/ai/refactorPlan";
 
 export default function Home() {
-  const { runAnalysis, data, loading } = useRepoAnalysis();
+  const {
+    runAnalysis,
+    data,
+    loading,
+    predictionsStream,
+    refactorStream,
+    predictionsDone, // 👈 added
+    refactorDone, // 👈 added
+  } = useRepoAnalysis();
 
   const hasData =
     data &&
@@ -63,10 +71,18 @@ export default function Home() {
           </div>
 
           {/* Row 2 — AI insights */}
-          {(data.predictions?.length > 0 || data.refactorPlan?.length > 0) && (
+          {(predictionsStream || refactorStream) && (
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              <PredictionsList data={data.predictions} />
-              <RefactorPlan data={data.refactorPlan} />
+              <PredictionsList
+                stream={predictionsStream}
+                isDone={predictionsDone}
+              />{" "}
+              {/* 👈 */}
+              <RefactorPlan
+                stream={refactorStream}
+                isDone={refactorDone}
+              />{" "}
+              {/* 👈 */}
             </div>
           )}
         </div>
