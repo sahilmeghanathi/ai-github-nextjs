@@ -15,8 +15,8 @@ export default function Home() {
     loading,
     predictionsStream,
     refactorStream,
-    predictionsDone, // 👈 added
-    refactorDone, // 👈 added
+    predictionsDone,
+    refactorDone,
   } = useRepoAnalysis();
 
   const hasData =
@@ -26,78 +26,138 @@ export default function Home() {
       Object.keys(data.features?.fileFrequency || {}).length > 0);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-background via-muted/40 to-background">
-      <div className="max-w-6xl mx-auto px-6 pt-12 pb-6 text-center space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">
-          AI Github Intelligence for Your Codebase
-        </h1>
-        <p className="text-muted-foreground max-w-xl mx-auto">
-          Analyze your repository to detect risky files, unstable PRs, and
-          high-change hotspots — instantly.
-        </p>
-        <div className="pt-4">
-          <RepoInput onSubmit={runAnalysis} />
-        </div>
-      </div>
+    <div className="relative min-h-screen overflow-x-hidden bg-[#060810] text-slate-200">
+      {/* Background Orbs */}
+      <div className="animate-orb fixed -left-40 -top-40 h-[480px] w-[480px] rounded-full bg-emerald-400/10 blur-[90px]" />
 
-      {loading && (
-        <div className="flex flex-col items-center justify-center py-20 space-y-4 animate-pulse">
-          <div className="w-12 h-12 rounded-full border-4 border-primary border-t-transparent animate-spin" />
-          <p className="text-muted-foreground text-sm">
-            Analyzing repository...
-          </p>
-        </div>
-      )}
+      <div className="animate-orb fixed -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-blue-400/10 blur-[90px] [animation-delay:-5s]" />
 
-      {!loading && hasData && (
-        <div className="max-w-6xl mx-auto px-6 pb-12 space-y-6 animate-fade-in">
-          {/* Row 1 — GitHub data */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {data.riskHeatmap?.length > 0 && (
-              <div className="col-span-1 md:col-span-2 xl:col-span-1">
-                <RiskHeatmap data={data.riskHeatmap} />
-              </div>
-            )}
-            {data.prScores?.length > 0 && (
-              <div className="col-span-1">
-                <PrScoresList data={data.prScores} />
-              </div>
-            )}
-            {Object.keys(data.features?.fileFrequency || {}).length > 0 && (
-              <div className="col-span-1">
-                <FileFrequency data={data.features.fileFrequency} />
-              </div>
-            )}
+      <div className="animate-orb fixed left-[45%] top-1/2 h-72 w-72 rounded-full bg-violet-400/10 blur-[90px] [animation-delay:-2.5s]" />
+
+      {/* Grid */}
+      <div className="fixed inset-0 z-0 bg-grid bg-grid pointer-events-none" />
+
+      <div className="relative z-10">
+        {/* Hero */}
+        <section className="mx-auto max-w-5xl space-y-7 px-6 pb-10 pt-20 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 font-mono text-xs text-emerald-400">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            AI-POWERED REPOSITORY INTELLIGENCE
           </div>
 
-          {/* Row 2 — AI insights */}
-          {(predictionsStream || refactorStream) && (
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              <PredictionsList
-                stream={predictionsStream}
-                isDone={predictionsDone}
-              />{" "}
-              {/* 👈 */}
-              <RefactorPlan
-                stream={refactorStream}
-                isDone={refactorDone}
-              />{" "}
-              {/* 👈 */}
-            </div>
-          )}
-        </div>
-      )}
+          <h1 className="font-display text-[clamp(2.8rem,7vw,5.5rem)] font-extrabold leading-none tracking-tight">
+            <span>GitHub</span>
 
-      {!loading && !hasData && (
-        <div className="flex flex-col items-center justify-center py-20 text-center space-y-3">
-          <div className="text-5xl">📊</div>
-          <h3 className="text-lg font-semibold">No analysis yet</h3>
-          <p className="text-muted-foreground text-sm max-w-md">
-            Enter a GitHub repository URL above to start analyzing code risk and
-            insights.
+            <br />
+
+            <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+              Intelligence
+            </span>
+          </h1>
+
+          <p className="mx-auto max-w-lg font-mono text-sm leading-7 text-slate-500">
+            Detect risky files, unstable PRs, and high-change hotspots.
+            <br />
+            AI insights streamed in real-time.
           </p>
-        </div>
-      )}
+
+          <div className="mx-auto max-w-xl pt-1">
+            <RepoInput onSubmit={runAnalysis} />
+          </div>
+        </section>
+
+        {/* Loading */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center space-y-6 py-28">
+            <div className="relative h-16 w-16">
+              <div className="animate-spinCW absolute inset-0 rounded-full border-2 border-white/10 border-t-emerald-400" />
+
+              <div className="animate-spinCCW absolute inset-2 rounded-full border-2 border-white/10 border-t-blue-400" />
+
+              <div className="absolute inset-[22px] rounded-full bg-emerald-400/40 shadow-[0_0_16px_#00ffb2]" />
+            </div>
+
+            <div className="space-y-1 text-center">
+              <p className="font-mono text-xs font-semibold tracking-widest text-emerald-400">
+                SCANNING REPOSITORY
+              </p>
+
+              <p className="font-mono text-xs text-slate-500">
+                Analyzing commits, PRs, and file change patterns…
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Dashboard */}
+        {!loading && hasData && (
+          <section className="animate-fadeUp mx-auto max-w-6xl space-y-5 px-6 pb-16">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {data.riskHeatmap?.length > 0 && (
+                <div className="col-span-1 md:col-span-2 xl:col-span-1">
+                  <RiskHeatmap data={data.riskHeatmap} />
+                </div>
+              )}
+
+              {data.prScores?.length > 0 && (
+                <PrScoresList data={data.prScores} />
+              )}
+
+              {Object.keys(data.features?.fileFrequency || {}).length > 0 && (
+                <FileFrequency data={data.features.fileFrequency} />
+              )}
+            </div>
+
+            {(predictionsStream || refactorStream) && (
+              <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+                <PredictionsList
+                  stream={predictionsStream}
+                  isDone={predictionsDone}
+                />
+
+                <RefactorPlan stream={refactorStream} isDone={refactorDone} />
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Empty */}
+        {!loading && !hasData && (
+          <section className="flex flex-col items-center justify-center space-y-5 py-32 text-center">
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/10 bg-[#0a0e18]/90 text-4xl shadow-[0_0_40px_rgba(0,255,178,0.04)] backdrop-blur-2xl">
+              📊
+            </div>
+
+            <div className="space-y-1.5">
+              <h3 className="font-display text-xl font-bold">
+                No Analysis Yet
+              </h3>
+
+              <p className="font-mono text-xs text-slate-500">
+                Enter a GitHub repository URL above to begin scanning.
+              </p>
+            </div>
+
+            <div className="flex gap-6 pt-4">
+              {[
+                { icon: "🔥", label: "Risk Heatmap" },
+                { icon: "🤖", label: "AI Predictions" },
+                { icon: "🛠️", label: "Refactor Plan" },
+              ].map(({ icon, label }) => (
+                <div key={label} className="flex flex-col items-center gap-2">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-[#0a0e18]/90 text-2xl backdrop-blur-xl">
+                    {icon}
+                  </div>
+
+                  <span className="font-mono text-[10px] text-slate-500">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
