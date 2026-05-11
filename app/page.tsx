@@ -28,9 +28,9 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[#060810] text-slate-200">
       {/* Background Orbs */}
-      <div className="animate-orb fixed -left-40 -top-40 h-[480px] w-[480px] rounded-full bg-emerald-400/10 blur-[90px]" />
+      <div className="animate-orb fixed -left-40 -top-40 h-120 w-120 rounded-full bg-emerald-400/10 blur-[90px]" />
 
-      <div className="animate-orb fixed -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-blue-400/10 blur-[90px] [animation-delay:-5s]" />
+      <div className="animate-orb fixed -bottom-32 -right-32 h-100 w-100 rounded-full bg-blue-400/10 blur-[90px] [animation-delay:-5s]" />
 
       <div className="animate-orb fixed left-[45%] top-1/2 h-72 w-72 rounded-full bg-violet-400/10 blur-[90px] [animation-delay:-2.5s]" />
 
@@ -41,7 +41,7 @@ export default function Home() {
         {/* Hero */}
         <section className="mx-auto max-w-5xl space-y-7 px-6 pb-10 pt-20 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 font-mono text-xs text-emerald-400">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
             AI-POWERED REPOSITORY INTELLIGENCE
           </div>
 
@@ -50,7 +50,7 @@ export default function Home() {
 
             <br />
 
-            <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
               Intelligence
             </span>
           </h1>
@@ -74,7 +74,7 @@ export default function Home() {
 
               <div className="animate-spinCCW absolute inset-2 rounded-full border-2 border-white/10 border-t-blue-400" />
 
-              <div className="absolute inset-[22px] rounded-full bg-emerald-400/40 shadow-[0_0_16px_#00ffb2]" />
+              <div className="absolute inset-5.5 rounded-full bg-emerald-400/40 shadow-[0_0_16px_#00ffb2]" />
             </div>
 
             <div className="space-y-1 text-center">

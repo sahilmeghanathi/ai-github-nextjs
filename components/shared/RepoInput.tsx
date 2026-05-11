@@ -30,7 +30,7 @@ export default function RepoInput({
           ${
             focused
               ? "border-emerald-400/30 bg-emerald-400/5 shadow-lg shadow-emerald-400/10 ring-2 ring-emerald-400/10"
-              : "border-white/10 bg-white/[0.02]"
+              : "border-white/10 bg-white/2"
           }
         `}
       >
@@ -105,7 +105,7 @@ export default function RepoInput({
         disabled={!repo.trim()}
         className={`
           flex shrink-0 items-center gap-2 rounded-xl
-          bg-gradient-to-r from-emerald-400 to-emerald-500
+          bg-linear-to-r from-emerald-400 to-emerald-500
           px-5 py-3 text-sm font-bold tracking-wide
           text-slate-950 transition-all duration-200
           ${

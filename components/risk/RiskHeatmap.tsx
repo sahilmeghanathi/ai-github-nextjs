@@ -138,7 +138,7 @@ export default function RiskHeatmap({ data }: { data: RiskItem[] }) {
               {/* Bar */}
               <div
                 className={`
-                  h-7 w-[3px] shrink-0 rounded-full
+                  h-7 w-0.75 shrink-0 rounded-full
                   opacity-60 transition-all duration-150
                   group-hover:opacity-100
                   ${cfg.barBg}

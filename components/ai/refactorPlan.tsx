@@ -169,7 +169,7 @@ export function RefactorPlan({
             className="
               flex gap-3 rounded-xl
               border border-white/5
-              bg-white/[0.02]
+              bg-white/2
               p-3 opacity-70
             "
           >
