@@ -1,4 +1,5 @@
 import { parsePartialArray } from "@/lib/ai/parsePartial";
+import { StreamingDots } from "@/components/ui/StreamingDots";
 
 const riskColor = (risk: string) => {
   if (risk === "High") {
@@ -75,15 +76,7 @@ export function PredictionsList({
           </div>
         </div>
 
-        {isStreaming && (
-          <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400 [animation-delay:0ms]" />
-
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400 [animation-delay:150ms]" />
-
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-emerald-400 [animation-delay:300ms]" />
-          </div>
-        )}
+        {isStreaming && <StreamingDots color="emerald" />}
       </div>
 
       {/* Content */}
@@ -167,11 +160,7 @@ export function PredictionsList({
             "
           >
             <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:0ms]" />
-
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:150ms]" />
-
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:300ms]" />
+              <StreamingDots color="slate" />
 
               <span className="ml-2 font-mono text-[10px] text-slate-500">
                 Generating predictions...

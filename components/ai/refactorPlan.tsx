@@ -1,4 +1,5 @@
 import { parsePartialArray } from "@/lib/ai/parsePartial";
+import { StreamingDots } from "@/components/ui/StreamingDots";
 
 const priorityColor = (priority: string) => {
   if (priority === "High") {
@@ -72,15 +73,7 @@ export function RefactorPlan({
           </div>
         </div>
 
-        {isStreaming && (
-          <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:0ms]" />
-
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:150ms]" />
-
-            <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-cyan-400 [animation-delay:300ms]" />
-          </div>
-        )}
+        {isStreaming && <StreamingDots color="cyan" />}
       </div>
 
       {/* Steps */}
@@ -187,11 +180,7 @@ export function RefactorPlan({
             </div>
 
             <div className="flex items-center gap-1.5 pt-1">
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:0ms]" />
-
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:150ms]" />
-
-              <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-slate-500 [animation-delay:300ms]" />
+              <StreamingDots color="slate" />
 
               <span className="ml-2 font-mono text-[10px] text-slate-500">
                 Building refactor strategy...

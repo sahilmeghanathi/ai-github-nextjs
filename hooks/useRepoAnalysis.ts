@@ -1,60 +1,46 @@
 "use client";
 
 import { analyzeRepo } from "@/app/actions/analyzeRepo";
-import { readStream } from "@/lib/ai/streamReader";
-import { useState } from "react";
+import { useAsyncResource } from "./useAsyncResource";
+import { useStream } from "./useStream";
 
 export function useRepoAnalysis() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<any>(null);
-  const [predictionsStream, setPredictionsStream] = useState("");
-  const [refactorStream, setRefactorStream] = useState("");
-  const [predictionsDone, setPredictionsDone] = useState(false);
-  const [refactorDone, setRefactorDone] = useState(false);
+  const resource = useAsyncResource<any>();
+  const predictionsStream = useStream();
+  const refactorStream = useStream();
 
   const runAnalysis = async (repo: string) => {
-    setLoading(true);
-    setPredictionsStream("");
-    setRefactorStream("");
-    setPredictionsDone(false);
-    setRefactorDone(false);
-    setData(null);
+    resource.reset();
+    predictionsStream.reset();
+    refactorStream.reset();
 
     try {
-      const result = await analyzeRepo(repo);
-      setData(result);
-      setLoading(false);
+      const result = await resource.fetch(() => analyzeRepo(repo));
 
-      const streamBody = {
-        riskHeatmap: result.riskHeatmap,
-        prs: result.prScores,
-        commits: [],
-      };
+      if (result) {
+        const streamBody = {
+          riskHeatmap: result.riskHeatmap,
+          prs: result.prScores,
+          commits: [],
+        };
 
-      await Promise.all([
-        readStream("/api/predict", streamBody, setPredictionsStream).then(() =>
-          setPredictionsDone(true),
-        ), 
-        readStream("/api/refactor", streamBody, setRefactorStream).then(() =>
-          setRefactorDone(true),
-        ), 
-      ]);
-
+        await Promise.all([
+          predictionsStream.fetch("/api/predict", streamBody),
+          refactorStream.fetch("/api/refactor", streamBody),
+        ]);
+      }
     } catch (err) {
       console.error(err);
-      setLoading(false);
     }
   };
 
-  console.log("refactorStream:", refactorStream);
-
   return {
-    loading,
-    data,
-    predictionsStream,
-    refactorStream,
-    predictionsDone, 
-    refactorDone, 
+    loading: resource.isLoading,
+    data: resource.data,
+    predictionsStream: predictionsStream.stream,
+    refactorStream: refactorStream.stream,
+    predictionsDone: predictionsStream.isDone,
+    refactorDone: refactorStream.isDone,
     runAnalysis,
   };
 }
