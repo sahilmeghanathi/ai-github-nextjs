@@ -9,6 +9,8 @@ import { PredictionsList } from "@/components/ai/predictionList";
 import { RefactorPlan } from "@/components/ai/refactorPlan";
 
 export default function Home() {
+
+
   const {
     runAnalysis,
     data,
@@ -19,6 +21,7 @@ export default function Home() {
     refactorDone,
   } = useRepoAnalysis();
 
+  
   const hasData =
     data &&
     (data.riskHeatmap?.length > 0 ||
