@@ -45,7 +45,7 @@ export default function Home() {
         <section className="mx-auto max-w-5xl space-y-7 px-6 pb-10 pt-20 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 font-mono text-xs text-emerald-400">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
-            AI-POWERED REPOSITORY INTELLIGENCE
+            AI-POWERED REPOSITORY INTELLIGENCE SYSTEM
           </div>
 
           <h1 className="font-display text-[clamp(2.8rem,7vw,5.5rem)] font-extrabold leading-none tracking-tight">
